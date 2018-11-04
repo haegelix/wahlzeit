@@ -1,1 +1,7 @@
 language: java
+jdk:
+-openjdk8
+
+before_cache:
+-rm -f $HOME/.gradle/cache/modules-2/modules-2.lock
+-rm -fr $HOME/.gradle/cache/*/plugin-resolutions/
