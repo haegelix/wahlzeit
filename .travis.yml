@@ -11,8 +11,6 @@ cache:
 	- $HOME/.gradle/cache*
 	- $HOME/.gradle/wrapper
 
-install:
-	- ./gradlew assemble
+install: ./gradlew assemble
 
-script:
-	-./gradlew test
+script: ./gradlew test
