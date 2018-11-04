@@ -19,23 +19,24 @@
  */
 package org.wahlzeit.services.mailing;
 
+import static org.junit.Assert.*;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.wahlzeit.services.EmailAddress;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 public class EmailServiceTest {
 
 	EmailService emailService = null;
 	EmailAddress validAddress = null;
+	EmailAddress validAddressBcc = null;
 
 	@Before
 	public void setup() throws Exception {
 		emailService = EmailServiceManager.getDefaultService();
 		validAddress = EmailAddress.getFromString("test@test.de");
+		validAddressBcc = EmailAddress.getFromString("testbcc@test.de");
 	}
 
 	@Test
@@ -57,4 +58,17 @@ public class EmailServiceTest {
 			Assert.fail("Silent mode does not allow exceptions");
 		}
 	}
+	
+	/*
+	 * hw03
+	 */ 
+	@Test
+	public void testSendValidEmailBcc() {
+		try {
+			assertTrue(emailService.sendEmailIgnoreException(validAddress, validAddress, validAddressBcc, "hi", "test"));
+		} catch (Exception ex) {
+			Assert.fail("Silent mode does not allow exceptions");
+		}
+	}
+
 }

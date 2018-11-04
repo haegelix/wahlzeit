@@ -58,12 +58,36 @@ public class EmailAddressTest extends TestCase {
 			return false;
 		}
 	}
+	
+	
 
 	/**
 	 *
 	 */
 	public void testEmptyEmailAddress() {
 		assertFalse(EmailAddress.EMPTY.isValid());
+	}
+	
+	/*
+	 * hw03
+	 */
+	public void testIsEqual() {
+		EmailAddress address1 = EmailAddress.getFromString("same@example.com");
+		EmailAddress address2 = EmailAddress.getFromString("same@example.com");
+		EmailAddress address3 = EmailAddress.getFromString("diff@example.com");
+		assertTrue(address1.isEqual(address2));
+		assertFalse(address1.isEqual(address3));
+	}
+	
+	/*
+	 * hw03
+	 */
+	public void testEquals() {
+		EmailAddress address1 = EmailAddress.getFromString("same@example.com");
+		EmailAddress address2 = EmailAddress.getFromString("same@example.com");
+		EmailAddress address3 = EmailAddress.getFromString("diff@example.com");
+		assertTrue(address1.equals(address2));
+		assertFalse(address1.equals(address3));
 	}
 
 }
