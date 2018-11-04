@@ -3,13 +3,13 @@ jdk:
 -openjdk8
 
 before_cache:
-	- rm -f $HOME/.gradle/cache/modules-2/modules-2.lock
-	- rm -fr $HOME/.gradle/cache/*/plugin-resolutions/
+  - rm -f $HOME/.gradle/cache/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/cache/*/plugin-resolutions/
 
 cache:
-	directories:
-	- $HOME/.gradle/cache*
-	- $HOME/.gradle/wrapper
+  directories:
+    - $HOME/.gradle/cache*
+    - $HOME/.gradle/wrapper
 
 install: ./gradlew assemble
 
