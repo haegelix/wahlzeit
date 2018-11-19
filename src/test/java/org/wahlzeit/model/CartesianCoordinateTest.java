@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Random;
 
 import org.junit.Test;
+import org.wahlzeit.utils.doubleUtil;
 
 /*
  * This file is part of the Wahlzeit photo rating application.
@@ -24,14 +25,14 @@ import org.junit.Test;
  * <http://www.gnu.org/licenses/>.
  */
 
-public class CoordinateTest {
+public class CartesianCoordinateTest {
 	
 	/**
 	 * Test if constructor checks for invalid values on init.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCoordinateInvalidValues() {
-		new Coordinate(Double.NaN, 1, 2);
+		new CartesianCoordinate(Double.NaN, 1, 2);
 	}
 	
 	/**
@@ -43,11 +44,11 @@ public class CoordinateTest {
 		double x1 = r.nextDouble()*r.nextInt(100);
 		double y1 = r.nextDouble()*r.nextInt(100);
 		double z1 = r.nextDouble()*r.nextInt(100);
-		Coordinate c1 = new Coordinate(x1, y1, z1);
+		CartesianCoordinate c1 = new CartesianCoordinate(x1, y1, z1);
 		double x2 = r.nextDouble()*r.nextInt(100);
 		double y2 = r.nextDouble()*r.nextInt(100);
 		double z2 = r.nextDouble()*r.nextInt(100);
-		Coordinate c2 = new Coordinate(x2, y2, z2);
+		CartesianCoordinate c2 = new CartesianCoordinate(x2, y2, z2);
 		
 		assertEquals(c1.equals(c2),c1.isEqual(c2));
 	}
@@ -55,14 +56,14 @@ public class CoordinateTest {
 	
 	
 	/**
-	 * Test if .getDistance calculates correct value.
+	 * Test if .getCartesianDistance calculates correct value.
 	 */
 	@Test
 	public void testCoordinateGetDistance() {
-		Coordinate c1 = new Coordinate(1, 1, 1);
-		Coordinate c2 = new Coordinate(2, 2, 2);
+		CartesianCoordinate c1 = new CartesianCoordinate(1, 1, 1);
+		CartesianCoordinate c2 = new CartesianCoordinate(2, 2, 2);
 		
-		assertEquals(c1.getDistance(c2),Math.sqrt(3), 0.002);
+		assertEquals(c1.getCartesianDistance(c2), Math.sqrt(3), doubleUtil.DELTA);
 	}
 	
 	

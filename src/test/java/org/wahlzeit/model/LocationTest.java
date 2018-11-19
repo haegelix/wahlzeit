@@ -37,8 +37,8 @@ public class LocationTest {
 	 */
 	@Test(expected = IllegalStateException.class)
 	public void testLocationNoCoordinateDefinedOnEquals() {
-		Location l = new Location(new Coordinate(3,2,1));
-		Location lc = new Location(new Coordinate(3,2,1));
+		Location l = new Location(new CartesianCoordinate(3,2,1));
+		Location lc = new Location(new CartesianCoordinate(3,2,1));
 		l.coordinate = null;
 		l.equals(lc);
 	}
@@ -48,7 +48,7 @@ public class LocationTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testLocationNoCoordinateDefinedOnEqualsParameter() {
-		Location l = new Location(new Coordinate(3,2,1));
+		Location l = new Location(new CartesianCoordinate(3,2,1));
 		l.equals(null);
 	}
 
@@ -57,9 +57,9 @@ public class LocationTest {
 	 */
 	@Test
 	public void testLocationEquals() {
-		Location l = new Location(new Coordinate(3,2,1));
-		Location lc1 = new Location(new Coordinate(3,2,1));
-		Location lc2 = new Location(new Coordinate(3,3,3));
+		Location l = new Location(new CartesianCoordinate(3,2,1));
+		Location lc1 = new Location(new CartesianCoordinate(3,2,1));
+		Location lc2 = new Location(new CartesianCoordinate(3,3,3));
 		
 		assertTrue(l.equals(lc1));
 		assertFalse(l.equals(lc2));

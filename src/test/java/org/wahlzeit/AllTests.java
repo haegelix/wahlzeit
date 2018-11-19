@@ -36,19 +36,19 @@ import org.junit.runners.Suite.SuiteClasses;
 	
 	// org.wahlzeit.model.*;
 	AccessRightsTest.class, 
-	CoordinateTest.class, 
+	CartesianCoordinateTest.class, 
 	FlagReasonTest.class, 
 	GenderTest.class, 
 	GuestTest.class,
-	LocationTest.class, 
-	PhotoFilterTest.class, 
-	TagsTest.class, 
-	UserStatusTest.class, 
-	ValueTest.class,
-	
 	LampPhotoTest.class,
 	LampPhotoFactoryTest.class,
 	LampPhotoManagerTest.class,
+	LocationTest.class, 
+	PhotoFilterTest.class,
+	SphericCoordinateTest.class,
+	TagsTest.class, 
+	UserStatusTest.class, 
+	ValueTest.class,
 
 	// org.wahlzeit.model.persistence.*
 	//AbstractAdapterTest.class, // abstract... also keine tests!

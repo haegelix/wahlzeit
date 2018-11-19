@@ -19,9 +19,9 @@
 package org.wahlzeit.model;
 
 public class Location {
-	public Coordinate coordinate;
+	public CartesianCoordinate coordinate;
 
-	public Location(Coordinate coordinate) {
+	public Location(CartesianCoordinate coordinate) {
 		if(coordinate == null)
 			throw new IllegalArgumentException("Coordinate is not defined! Cannot init Location!");
 		else
