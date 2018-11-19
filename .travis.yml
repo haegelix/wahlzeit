@@ -10,7 +10,7 @@ cache:
   directories:
     - $HOME/.gradle/
 
-#install: ./gradlew assemble
-#
-#script: 
-#./gradlew test
+install: ./gradlew assemble
+
+script: 
+./gradlew test
