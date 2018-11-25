@@ -10,7 +10,7 @@ jdk:
 #  directories:
 #    - $HOME/.gradle/
 
-install: ./gradlew assemble
+#install: ./gradlew assemble
 
-script: 
-./gradlew test
+#script: 
+#./gradlew test
