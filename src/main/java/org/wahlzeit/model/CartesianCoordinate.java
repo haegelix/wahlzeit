@@ -20,7 +20,7 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.utils.doubleUtil;
 
-public class CartesianCoordinate implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
 	private double x, y, z;
 	
 	public CartesianCoordinate(double x, double y, double z) {

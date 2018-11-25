@@ -20,7 +20,7 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.utils.doubleUtil;
 
-public class SphericCoordinate implements Coordinate{
+public class SphericCoordinate extends AbstractCoordinate {
 	private double phi, theta, radius;
 	
 	public SphericCoordinate(double phi, double theta, double radius) {
@@ -79,11 +79,6 @@ public class SphericCoordinate implements Coordinate{
 		double y = radius * Math.sin(this.theta)*Math.sin(this.phi);
 		double z = radius * Math.cos(this.theta);
 		return new CartesianCoordinate(x, y, z);
-	}
-
-	@Override
-	public double getCartesianDistance(Coordinate coord) {
-		return this.asCartesianCoordinate().getCartesianDistance(coord);
 	}
 
 	@Override
