@@ -18,76 +18,153 @@
 
 package org.wahlzeit.model;
 
-import org.wahlzeit.utils.doubleUtil;
+import org.wahlzeit.utils.DoubleUtil;
+import org.wahlzeit.utils.AssertUtil;
 
+/**
+ * Describes {@link AbstractCoordinate} as {@link SphericCoordinate}.
+ */
 public class SphericCoordinate extends AbstractCoordinate {
 	private double phi, theta, radius;
 	
+	/**
+	 * Creates new Object of type {@link SphericCoordinate}.
+	 * @param phi Longitude
+	 * @param theta Latitude
+	 * @param radius Radius
+	 * @methodtype constructor
+	 */
 	public SphericCoordinate(double phi, double theta, double radius) {
-		checkAngle(phi, 2*Math.PI);
-		checkAngle(theta, Math.PI);
-		checkRadius(radius);
+		assertAngleHasValidValue(phi, 2*Math.PI);
+		assertAngleHasValidValue(theta, Math.PI);
+		assertRadiusHasValidValue(radius);
 		
 		this.phi = phi;
 		this.theta = theta;
 		this.radius = radius;
 	}
 	
-	public void checkAngle(double val, double max) {
-		if(val == Double.NaN)
-			throw new IllegalArgumentException("Given angle ("+ val +") must not ne NaN ");
+	/**
+	 * Checks if val holds a valid value for the variable angle.
+	 * @param val Value to be asserted as possible.
+	 * @param max Holds the maximum value the variable val may contain.
+	 * @throws IllegalArgumentException Will be thrown if assertation fails.
+	 * @methodtype assert
+	 */
+	protected void assertAngleHasValidValue(double val, double max) throws IllegalArgumentException {
+		if(DoubleUtil.checkDoubleIsNaN(val))
+			throw new IllegalArgumentException("Angle must not be NaN");
+		if(DoubleUtil.checkDoubleIsNegOrPosInfinity(val))
+			throw new IllegalArgumentException("Angle must not be infinite");
 		if(val > max)
-			throw new IllegalArgumentException("Given angle ("+ val +") must not exceed " +max);
+			throw new IllegalArgumentException("Angle ("+ val +") must not exceed " +max);
 		if(val < 0)
-			throw new IllegalArgumentException("Given angle ("+ val +") must not be less than " +max);
+			throw new IllegalArgumentException("Angle ("+ val +") must not be less than 0");
 	}
 	
-	public void checkRadius(double val) {
-		if(val == Double.NaN)
-			throw new IllegalArgumentException("Given radius ("+ val +") must not ne NaN ");
+	/**
+	 * Checks if val holds a valid value for the variable radius.
+	 * @param val Value to be asserted as possible.
+	 * @throws IllegalArgumentException Will be thrown if assertation fails.
+	 * @methodtype assert
+	 */
+	protected void assertRadiusHasValidValue(double val) throws IllegalArgumentException {
+		if(DoubleUtil.checkDoubleIsNaN(val))
+			throw new IllegalArgumentException("Radius must not be NaN ");
+		if(DoubleUtil.checkDoubleIsNegOrPosInfinity(val))
+			throw new IllegalArgumentException("Radius must not be infinite");
 		if(val < 0)
-			throw new IllegalArgumentException("Given radius ("+ val +") must not be less than 0");
+			throw new IllegalArgumentException("Radius ("+ val +") must not be less than 0");
+	}
+	
+	/**
+	 * If state is not as specified one of the assert-methods will throw an {@link IllegalStateException}
+	 * that will be transformed into a IllegalStateException.
+	 * @throws IllegalStateException
+	 * @methodtype assert
+	 */
+	protected void assertClassInvariants() throws IllegalStateException {
+		try {
+			assertAngleHasValidValue(phi, 2*Math.PI);
+			assertAngleHasValidValue(theta, Math.PI);
+			assertRadiusHasValidValue(radius);
+		} catch (Exception e) {
+			IllegalStateException x = new IllegalStateException(e.getMessage());
+			x.setStackTrace(e.getStackTrace());
+			throw x;
+		}
 	}
 
 	/**
+	 * Returns the value of the variable phi.
 	 * @methodtype get
 	 * @return
 	 */
 	public double getPhi() {
+		assertClassInvariants();
+		
 		return phi;
 	}
 
 	/**
+	 * Returns the value of the variable theta.
 	 * @methodtype get
 	 * @return
 	 */
 	public double getTheta() {
+		assertClassInvariants();
+		
 		return theta;
 	}
 
 	/**
+	 * Returns the value of the variable radius.
 	 * @methodtype get
 	 * @return
 	 */
 	public double getRadius() {
+		assertClassInvariants();
+		
 		return radius;
 	}
 
+	/**
+	 * See description in superclass.
+	 * @methodtype get
+	 */
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
+		assertClassInvariants();
+		
 		double x = radius * Math.sin(this.theta)*Math.cos(this.phi);
 		double y = radius * Math.sin(this.theta)*Math.sin(this.phi);
 		double z = radius * Math.cos(this.theta);
 		return new CartesianCoordinate(x, y, z);
 	}
 
+	/**
+	 * See description in superclass.
+	 * @methodtype get
+	 */
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
+		assertClassInvariants();
+		
 		return this;
 	}
 
+	/**
+	 * See description in superclass.
+	 * @methodtype get
+	 */
 	@Override
 	public double getCentralAngle(Coordinate coord) {
+		// Preconditions:
+		AssertUtil.assertNotNull(coord);
+		
+		// Class invariants:
+		assertClassInvariants();
+		
 		SphericCoordinate c = coord.asSphericCoordinate();
 		// Koordinatenumrechnung
 		double phiNeu1 = this.getTheta() - 90;
@@ -97,23 +174,35 @@ public class SphericCoordinate extends AbstractCoordinate {
 		return Math.acos(Math.sin(phiNeu1)*Math.sin(phiNeu2)+Math.cos(phiNeu1)*Math.cos(phiNeu2)*Math.cos(lambda1-lambda2));
 	}
 
+	/**
+	 * See description in superclass.
+	 * @methodtype assert
+	 */
 	@Override
 	public boolean isEqual(Coordinate coord) {
+		// Preconditions:
+		AssertUtil.assertNotNull(coord);
+		
+		// Class invariants:
+		assertClassInvariants();
+		
 		SphericCoordinate c = coord.asSphericCoordinate();
 		
 		/*
 		 *  If radius is 0 in this object and in coord, then they are equal, even if the angles theta and phi differ.
 		 */
-		if(doubleUtil.doubleEquals(c.getRadius(), 0) && doubleUtil.doubleEquals(this.radius, 0))
+		if(DoubleUtil.doubleEquals(c.getRadius(), 0) && DoubleUtil.doubleEquals(this.radius, 0))
 			return true;
 		
-		if(!doubleUtil.doubleEquals(c.getPhi(), this.phi))
+		if(!DoubleUtil.doubleEquals(c.getPhi(), this.phi))
 			return false;
-		if(!doubleUtil.doubleEquals(c.getTheta(), this.theta))
+		if(!DoubleUtil.doubleEquals(c.getTheta(), this.theta))
 			return false;
-		if(!doubleUtil.doubleEquals(c.getRadius(), this.radius))
+		if(!DoubleUtil.doubleEquals(c.getRadius(), this.radius))
 			return false;
 		return true;
+		
+		// Postconditions: none
 	}
 
 	
