@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class doubleUtilTest {
+public class DoubleUtilTest {
 	@Test
 	public void testDoubleEquals() throws Exception {
 		double d = 1.00;
@@ -22,7 +22,18 @@ public class doubleUtilTest {
 		double d_true = d + DELTA / 2;
 		double d_false = d + DELTA * 2;
 		
-		assertTrue(DoubleUtil.doubleEquals(d, d_true));
-		assertFalse(DoubleUtil.doubleEquals(d, d_false));
+		assertTrue(DoubleUtil.doubleEquals(d, d_true, DELTA));
+		assertFalse(DoubleUtil.doubleEquals(d, d_false, DELTA));
+	}
+	
+	@Test
+	public void testCheckDoubleIsNaN() throws Exception {
+		assertTrue(DoubleUtil.checkDoubleIsNaN(Double.NaN));
+	}
+	
+	@Test
+	public void testCheckDoubleIsNegOrPosInfinity() throws Exception {
+		assertTrue(DoubleUtil.checkDoubleIsNegOrPosInfinity(Double.POSITIVE_INFINITY));
+		assertTrue(DoubleUtil.checkDoubleIsNegOrPosInfinity(Double.NEGATIVE_INFINITY));
 	}
 }

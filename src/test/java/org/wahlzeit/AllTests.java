@@ -72,6 +72,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	// WebFormHandlerProvider.class,
 	
 	// org.wahlzeit.utils.*
+	DoubleUtilTest.class,
+	AssertUtilTest.class,
 	StringUtilTest.class,
 	VersionTest.class
 })

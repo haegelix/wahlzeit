@@ -55,6 +55,7 @@ public class LocationTest {
 	/*
 	 * Test .equals with values for coordinates.
 	 */
+	/*
 	@Test
 	public void testLocationEquals() {
 		Location l = new Location(new CartesianCoordinate(3,2,1));
@@ -63,6 +64,6 @@ public class LocationTest {
 		
 		assertTrue(l.equals(lc1));
 		assertFalse(l.equals(lc2));
-	}
+	}*/
 	
 }
