@@ -56,7 +56,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 			throw new IllegalArgumentException("Angle must not be NaN");
 		if(DoubleUtil.checkDoubleIsNegOrPosInfinity(val))
 			throw new IllegalArgumentException("Angle must not be infinite");
-		if(val > max)
+		if(val >= max)
 			throw new IllegalArgumentException("Angle ("+ val +") must not exceed " +max);
 		if(val < 0)
 			throw new IllegalArgumentException("Angle ("+ val +") must not be less than 0");

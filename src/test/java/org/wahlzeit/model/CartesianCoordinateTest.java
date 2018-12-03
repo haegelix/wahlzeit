@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Random;
 
 import org.junit.Test;
-import org.wahlzeit.utils.doubleUtil;
+import org.wahlzeit.utils.DoubleUtil;
 
 /*
  * This file is part of the Wahlzeit photo rating application.
@@ -63,7 +63,7 @@ public class CartesianCoordinateTest {
 		CartesianCoordinate c1 = new CartesianCoordinate(1, 1, 1);
 		CartesianCoordinate c2 = new CartesianCoordinate(2, 2, 2);
 		
-		assertEquals(c1.getCartesianDistance(c2), Math.sqrt(3), doubleUtil.DELTA);
+		assertEquals(c1.getCartesianDistance(c2), Math.sqrt(3), DoubleUtil.DELTA);
 	}
 	
 	

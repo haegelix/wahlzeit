@@ -18,7 +18,7 @@
 
 package org.wahlzeit.model;
 
-import org.wahlzeit.utils.doubleUtil;
+import org.wahlzeit.utils.DoubleUtil;
 
 public class CartesianCoordinate extends AbstractCoordinate {
 	private double x, y, z;
@@ -129,11 +129,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	@Override
 	public boolean isEqual(Coordinate coord) {
 		CartesianCoordinate c = coord.asCartesianCoordinate();
-		if(doubleUtil.doubleEquals(c.getX(), this.x))
+		if(DoubleUtil.doubleEquals(c.getX(), this.x))
 			return false;
-		if(doubleUtil.doubleEquals(c.getY(), this.y))
+		if(DoubleUtil.doubleEquals(c.getY(), this.y))
 			return false;
-		if(doubleUtil.doubleEquals(c.getZ(), this.z))
+		if(DoubleUtil.doubleEquals(c.getZ(), this.z))
 			return false;
 		
 		return true;
