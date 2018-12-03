@@ -1,6 +1,6 @@
 package org.wahlzeit.utils;
 
-public final class doubleUtil {
+public final class DoubleUtil {
 	public static final double DELTA = 0.000000001;
 	
 	public static boolean doubleEquals(double a, double b) {
@@ -11,5 +11,13 @@ public final class doubleUtil {
 		if(a + delta > b && a - delta < b)
 			return true;
 		return false;
+	}
+	
+	public static boolean assertDoubleNotNaN(double a) {
+		return !(a == Double.NaN);
+	}
+	
+	public static boolean assertDoubleNotNegOrPosInfinity(double a) {
+		return !(a == Double.POSITIVE_INFINITY || a == Double.NEGATIVE_INFINITY);
 	}
 }
