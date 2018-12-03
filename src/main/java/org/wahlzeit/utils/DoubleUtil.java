@@ -14,7 +14,7 @@ public final class DoubleUtil {
 	}
 	
 	public static boolean checkDoubleIsNaN(double a) {
-		return a == Double.NaN;
+		return (new Double(a)).isNaN();
 	}
 	
 	public static boolean checkDoubleIsNegOrPosInfinity(double a) {
