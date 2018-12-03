@@ -13,11 +13,11 @@ public final class DoubleUtil {
 		return false;
 	}
 	
-	public static boolean assertDoubleNotNaN(double a) {
-		return !(a == Double.NaN);
+	public static boolean checkDoubleIsNaN(double a) {
+		return a == Double.NaN;
 	}
 	
-	public static boolean assertDoubleNotNegOrPosInfinity(double a) {
-		return !(a == Double.POSITIVE_INFINITY || a == Double.NEGATIVE_INFINITY);
+	public static boolean checkDoubleIsNegOrPosInfinity(double a) {
+		return a == Double.POSITIVE_INFINITY || a == Double.NEGATIVE_INFINITY;
 	}
 }
