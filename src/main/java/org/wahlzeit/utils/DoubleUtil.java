@@ -18,6 +18,6 @@ public final class DoubleUtil {
 	}
 	
 	public static boolean checkDoubleIsNegOrPosInfinity(double a) {
-		return a == Double.POSITIVE_INFINITY || a == Double.NEGATIVE_INFINITY;
+		return Double.isInfinite(a);
 	}
 }
