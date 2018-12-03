@@ -18,35 +18,50 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.AssertUtil;
 import org.wahlzeit.utils.DoubleUtil;
 
 public class CartesianCoordinate extends AbstractCoordinate {
 	private double x, y, z;
 	
+	/**
+	 * Creates new Object of type {@link CartesianCoordinate}
+	 * @param x X-Coordinate
+	 * @param y Y-Coordinate
+	 * @param z Z-Coordinate
+	 * @methodtype constructor
+	 */
 	public CartesianCoordinate(double x, double y, double z) {
-		checkInput(x);
-		checkInput(y);
-		checkInput(z);
+		checkDouble(x);
+		checkDouble(y);
+		checkDouble(z);
 				
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
-	
 	/**
 	 * @methodtype assert
 	 * @param in
 	 */
-	private void checkInput(double in) {
-		boolean err = false;
+	private void checkDouble(double in) {
 		if(Double.isInfinite(in))
-			err = true;
+			throw new IllegalArgumentException("The value must not be infinite!");
 		if(Double.isNaN(in))
-			err = true;
-		
-		if(err)
-			throw new IllegalArgumentException("The value is not allowed here!");
+			throw new IllegalArgumentException("The value must not be NaN!");
+	}
+	
+	protected void assertClassInvariants() throws IllegalStateException {
+		try {
+			checkDouble(x);
+			checkDouble(y);
+			checkDouble(z);
+		} catch (Exception e) {
+			IllegalStateException x = new IllegalStateException(e.getMessage());
+			x.setStackTrace(e.getStackTrace());
+			throw x;
+		}
 	}
 	
 	/**
@@ -54,6 +69,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return
 	 */
 	public double getX() {
+		assertClassInvariants();
+		
 		return x;
 	}
 
@@ -62,6 +79,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return
 	 */
 	public double getY() {
+		assertClassInvariants();
+		
 		return y;
 	}
 
@@ -70,6 +89,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return
 	 */
 	public double getZ() {
+		assertClassInvariants();
+		
 		return z;
 	}
 	
@@ -80,6 +101,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @return
 	 */
 	private double getDistance(CartesianCoordinate c) {
+		assertClassInvariants();
+		
 		return Math.sqrt(Math.pow(c.getX()-x, 2) + Math.pow(c.getY()-y, 2) + Math.pow(c.getZ()-z, 2));
 	}
 	
@@ -89,24 +112,33 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	@Override
 	public boolean equals(Object arg0) {
+		assertClassInvariants();
+		
 		return isEqual((CartesianCoordinate) arg0);
 	}
 
 
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
+		assertClassInvariants();
+		
 		return this;
 	}
 
 
 	@Override
 	public double getCartesianDistance(Coordinate coord) {
+		AssertUtil.assertNotNull(coord);
+		assertClassInvariants();
+		
 		return getDistance(coord.asCartesianCoordinate());
 	}
 
 
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
+		assertClassInvariants();
+		
 		double radius = Math.sqrt(x*x + y*y + z*z);
 		double theta = Math.acos(z/radius);
 		double phi = Math.atan2(y, x);
@@ -116,18 +148,24 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 	@Override
 	public double getCentralAngle(Coordinate coord) {
+		AssertUtil.assertNotNull(coord);
+		assertClassInvariants();
+		
 		CartesianCoordinate c = coord.asCartesianCoordinate();
 		double res;
 		res = c.getX()*this.x + c.getY()*this.y + c.getZ()*this.z;
 		res = res / Math.sqrt(c.getX()*c.getX() + c.getY()*c.getY() + c.getZ()*c.getZ());
 		res = res / Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
 		return Math.acos(res);
-		//return this.asSphericCoordinate().getCentralAngle(coord);
 	}
 
 
 	@Override
 	public boolean isEqual(Coordinate coord) {
+		AssertUtil.assertNotNull(coord);
+		
+		assertClassInvariants();
+		
 		CartesianCoordinate c = coord.asCartesianCoordinate();
 		if(DoubleUtil.doubleEquals(c.getX(), this.x))
 			return false;

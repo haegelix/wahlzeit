@@ -51,7 +51,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @throws IllegalArgumentException Will be thrown if assertation fails.
 	 * @methodtype assert
 	 */
-	protected void assertAngleHasValidValue(double val, double max) throws IllegalArgumentException {
+	protected static void assertAngleHasValidValue(double val, double max) throws IllegalArgumentException {
 		if(DoubleUtil.checkDoubleIsNaN(val))
 			throw new IllegalArgumentException("Angle must not be NaN");
 		if(DoubleUtil.checkDoubleIsNegOrPosInfinity(val))
@@ -68,7 +68,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @throws IllegalArgumentException Will be thrown if assertation fails.
 	 * @methodtype assert
 	 */
-	protected void assertRadiusHasValidValue(double val) throws IllegalArgumentException {
+	protected static void assertRadiusHasValidValue(double val) throws IllegalArgumentException {
 		if(DoubleUtil.checkDoubleIsNaN(val))
 			throw new IllegalArgumentException("Radius must not be NaN ");
 		if(DoubleUtil.checkDoubleIsNegOrPosInfinity(val))
