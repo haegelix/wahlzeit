@@ -21,22 +21,22 @@ package org.wahlzeit.model;
 public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
-	public abstract CartesianCoordinate asCartesianCoordinate();
+	public abstract CartesianCoordinate asCartesianCoordinate() throws IllegalStateException;
 	
 	@Override
-	public double getCartesianDistance(Coordinate coord) {
+	public double getCartesianDistance(Coordinate coord) throws IllegalStateException, IllegalArgumentException {
 		return this.asCartesianCoordinate().getCartesianDistance(coord);
 	}
 
 	@Override
-	public abstract SphericCoordinate asSphericCoordinate();
+	public abstract SphericCoordinate asSphericCoordinate()throws IllegalStateException;
 
 	@Override
-	public double getCentralAngle(Coordinate coord) {
+	public double getCentralAngle(Coordinate coord) throws IllegalStateException, IllegalArgumentException {
 		return this.asSphericCoordinate().getCentralAngle(coord);
 	}
 
 	@Override
-	public abstract boolean isEqual(Coordinate coord);
+	public abstract boolean isEqual(Coordinate coord) throws IllegalStateException, IllegalArgumentException;
 
 }

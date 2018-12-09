@@ -10,7 +10,7 @@ public class LampPhotoTest {
 
 	@Before
 	public void init() {
-		p = new LampPhoto();
+		p = new LampPhoto("20W", "10W", "Halogen");
 	}
 
 

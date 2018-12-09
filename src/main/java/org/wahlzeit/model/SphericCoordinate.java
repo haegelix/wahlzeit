@@ -19,6 +19,10 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.utils.DoubleUtil;
+
+import java.util.logging.Logger;
+
+import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.utils.AssertUtil;
 
 /**
@@ -27,6 +31,8 @@ import org.wahlzeit.utils.AssertUtil;
 public class SphericCoordinate extends AbstractCoordinate {
 	private double phi, theta, radius;
 	
+	private static final Logger log = Logger.getLogger(SphericCoordinate.class.getName());
+	
 	/**
 	 * Creates new Object of type {@link SphericCoordinate}.
 	 * @param phi Longitude
@@ -34,7 +40,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param radius Radius
 	 * @methodtype constructor
 	 */
-	public SphericCoordinate(double phi, double theta, double radius) {
+	public SphericCoordinate(double phi, double theta, double radius) throws IllegalArgumentException {
 		assertAngleHasValidValue(phi, 2*Math.PI);
 		assertAngleHasValidValue(theta, Math.PI);
 		assertRadiusHasValidValue(radius);
@@ -91,6 +97,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		} catch (Exception e) {
 			IllegalStateException x = new IllegalStateException(e.getMessage());
 			x.setStackTrace(e.getStackTrace());
+			log.config(LogBuilder.createSystemMessage().addException(x.getMessage(), x).toString());
 			throw x;
 		}
 	}
@@ -100,7 +107,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype get
 	 * @return
 	 */
-	public double getPhi() {
+	public double getPhi() throws IllegalStateException {
 		assertClassInvariants();
 		
 		return phi;
@@ -111,7 +118,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype get
 	 * @return
 	 */
-	public double getTheta() {
+	public double getTheta() throws IllegalStateException {
 		assertClassInvariants();
 		
 		return theta;
@@ -122,7 +129,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype get
 	 * @return
 	 */
-	public double getRadius() {
+	public double getRadius() throws IllegalStateException {
 		assertClassInvariants();
 		
 		return radius;
@@ -133,7 +140,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype get
 	 */
 	@Override
-	public CartesianCoordinate asCartesianCoordinate() {
+	public CartesianCoordinate asCartesianCoordinate() throws IllegalStateException {
 		assertClassInvariants();
 		
 		double x = radius * Math.sin(this.theta)*Math.cos(this.phi);
@@ -147,7 +154,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype get
 	 */
 	@Override
-	public SphericCoordinate asSphericCoordinate() {
+	public SphericCoordinate asSphericCoordinate() throws IllegalStateException {
 		assertClassInvariants();
 		
 		return this;
@@ -158,7 +165,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype get
 	 */
 	@Override
-	public double getCentralAngle(Coordinate coord) {
+	public double getCentralAngle(Coordinate coord) throws IllegalStateException, IllegalArgumentException{
 		// Preconditions:
 		AssertUtil.assertNotNull(coord);
 		
@@ -179,7 +186,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype assert
 	 */
 	@Override
-	public boolean isEqual(Coordinate coord) {
+	public boolean isEqual(Coordinate coord) throws IllegalStateException, IllegalArgumentException {
 		// Preconditions:
 		AssertUtil.assertNotNull(coord);
 		
@@ -211,7 +218,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object arg0) {
+	public boolean equals(Object arg0) throws IllegalArgumentException {
 		return isEqual((Coordinate) arg0);
 	}
 }

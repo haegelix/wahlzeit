@@ -14,10 +14,21 @@ public final class DoubleUtil {
 	}
 	
 	public static boolean checkDoubleIsNaN(double a) {
-		return (new Double(a)).isNaN();
+		return Double.isNaN(a);
 	}
 	
 	public static boolean checkDoubleIsNegOrPosInfinity(double a) {
 		return Double.isInfinite(a);
+	}
+	
+	/**
+	 * @methodtype assert
+	 * @param in
+	 */
+	public static void checkDouble(double in) throws IllegalArgumentException{
+		if(checkDoubleIsNegOrPosInfinity(in))
+			throw new IllegalArgumentException("The value must not be infinite!");
+		if(checkDoubleIsNaN(in))
+			throw new IllegalArgumentException("The value must not be NaN!");
 	}
 }

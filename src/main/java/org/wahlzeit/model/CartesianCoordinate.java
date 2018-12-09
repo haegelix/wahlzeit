@@ -18,11 +18,16 @@
 
 package org.wahlzeit.model;
 
+import java.util.logging.Logger;
+
+import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.utils.AssertUtil;
 import org.wahlzeit.utils.DoubleUtil;
 
 public class CartesianCoordinate extends AbstractCoordinate {
 	private double x, y, z;
+	
+	private static final Logger log = Logger.getLogger(CartesianCoordinate.class.getName());
 	
 	/**
 	 * Creates new Object of type {@link CartesianCoordinate}
@@ -31,35 +36,25 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param z Z-Coordinate
 	 * @methodtype constructor
 	 */
-	public CartesianCoordinate(double x, double y, double z) {
-		checkDouble(x);
-		checkDouble(y);
-		checkDouble(z);
+	public CartesianCoordinate(double x, double y, double z) throws IllegalArgumentException {
+		DoubleUtil.checkDouble(x);
+		DoubleUtil.checkDouble(y);
+		DoubleUtil.checkDouble(z);
 				
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
-	/**
-	 * @methodtype assert
-	 * @param in
-	 */
-	private void checkDouble(double in) {
-		if(Double.isInfinite(in))
-			throw new IllegalArgumentException("The value must not be infinite!");
-		if(Double.isNaN(in))
-			throw new IllegalArgumentException("The value must not be NaN!");
-	}
-	
 	protected void assertClassInvariants() throws IllegalStateException {
 		try {
-			checkDouble(x);
-			checkDouble(y);
-			checkDouble(z);
-		} catch (Exception e) {
+			DoubleUtil.checkDouble(x);
+			DoubleUtil.checkDouble(y);
+			DoubleUtil.checkDouble(z);
+		} catch (IllegalArgumentException e) {
 			IllegalStateException x = new IllegalStateException(e.getMessage());
 			x.setStackTrace(e.getStackTrace());
+			log.config(LogBuilder.createSystemMessage().addException(x.getMessage(), x).toString());
 			throw x;
 		}
 	}
@@ -68,7 +63,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @methodtype get
 	 * @return
 	 */
-	public double getX() {
+	public double getX() throws IllegalStateException{
 		assertClassInvariants();
 		
 		return x;
@@ -78,7 +73,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @methodtype get
 	 * @return
 	 */
-	public double getY() {
+	public double getY() throws IllegalStateException {
 		assertClassInvariants();
 		
 		return y;
@@ -88,7 +83,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @methodtype get
 	 * @return
 	 */
-	public double getZ() {
+	public double getZ() throws IllegalStateException {
 		assertClassInvariants();
 		
 		return z;
@@ -100,7 +95,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param c
 	 * @return
 	 */
-	private double getDistance(CartesianCoordinate c) {
+	private double getDistance(CartesianCoordinate c) throws IllegalStateException {
 		assertClassInvariants();
 		
 		return Math.sqrt(Math.pow(c.getX()-x, 2) + Math.pow(c.getY()-y, 2) + Math.pow(c.getZ()-z, 2));
@@ -111,7 +106,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object arg0) {
+	public boolean equals(Object arg0) throws IllegalStateException {
 		assertClassInvariants();
 		
 		return isEqual((CartesianCoordinate) arg0);
@@ -119,7 +114,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 
 	@Override
-	public CartesianCoordinate asCartesianCoordinate() {
+	public CartesianCoordinate asCartesianCoordinate() throws IllegalStateException {
 		assertClassInvariants();
 		
 		return this;
@@ -127,7 +122,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 
 	@Override
-	public double getCartesianDistance(Coordinate coord) {
+	public double getCartesianDistance(Coordinate coord) throws IllegalStateException, IllegalArgumentException{
 		AssertUtil.assertNotNull(coord);
 		assertClassInvariants();
 		
@@ -136,7 +131,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 
 	@Override
-	public SphericCoordinate asSphericCoordinate() {
+	public SphericCoordinate asSphericCoordinate() throws IllegalStateException {
 		assertClassInvariants();
 		
 		double radius = Math.sqrt(x*x + y*y + z*z);
@@ -147,7 +142,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 
 	@Override
-	public double getCentralAngle(Coordinate coord) {
+	public double getCentralAngle(Coordinate coord) throws IllegalStateException, IllegalArgumentException {
 		AssertUtil.assertNotNull(coord);
 		assertClassInvariants();
 		
@@ -161,7 +156,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 
 	@Override
-	public boolean isEqual(Coordinate coord) {
+	public boolean isEqual(Coordinate coord) throws IllegalStateException, IllegalArgumentException {
 		AssertUtil.assertNotNull(coord);
 		
 		assertClassInvariants();

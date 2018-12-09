@@ -24,34 +24,34 @@ public interface Coordinate {
 	 * Converts this Coordinate into CartesianCoordinate
 	 * @return
 	 */
-	public CartesianCoordinate asCartesianCoordinate();
+	public CartesianCoordinate asCartesianCoordinate() throws IllegalStateException;
 	
 	/**
 	 * Computes cartesian Distance between this object and coord
 	 * @param coord
 	 * @return
 	 */
-	public double getCartesianDistance(Coordinate coord);
+	public double getCartesianDistance(Coordinate coord) throws IllegalStateException, IllegalArgumentException;
 	
 	/**
 	 * Converts this Coordinate into SphericCoordinate
 	 * @return
 	 */
-	public SphericCoordinate asSphericCoordinate();
+	public SphericCoordinate asSphericCoordinate() throws IllegalStateException;
 	
 	/**
 	 * Computes the central angel between this object and coord.
 	 * @param coord
 	 * @return
 	 */
-	public double getCentralAngle(Coordinate coord);
+	public double getCentralAngle(Coordinate coord) throws IllegalStateException, IllegalArgumentException;
 	
 	/**
 	 * Determines if the acrtual object and coord describe the same place.
 	 * @param coord
 	 * @return
 	 */
-	public boolean isEqual(Coordinate coord);
+	public boolean isEqual(Coordinate coord) throws IllegalArgumentException;
 	
-	public boolean equals(Object arg0);
+	public boolean equals(Object arg0) throws IllegalArgumentException;
 }
