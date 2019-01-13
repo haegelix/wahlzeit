@@ -20,6 +20,7 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.DesignPattern;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.utils.StringUtil;
 
@@ -35,6 +36,12 @@ import java.util.logging.Logger;
  * A class to specify a photo filter.
  * A photo filter captures selection ("filtering") criteria for photos.
  */
+@DesignPattern(
+		name = "Iterator", 
+		participants = { 
+				"Client"
+		}
+)
 public class PhotoFilter implements Serializable {
 
 	private static Logger log = Logger.getLogger(PhotoFilter.class.getName());
@@ -55,6 +62,14 @@ public class PhotoFilter implements Serializable {
 	 *
 	 */
 	protected List<PhotoId> displayablePhotoIds;
+	
+
+	@DesignPattern(
+		name = "Iterator", 
+		participants = { 
+				"Aggregate"
+		}
+	)
 	protected List<PhotoId> processedPhotoIds = new LinkedList<PhotoId>();
 	protected List<PhotoId> skippedPhotoIds = new LinkedList<PhotoId>();
 

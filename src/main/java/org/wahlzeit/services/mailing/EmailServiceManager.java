@@ -20,11 +20,18 @@
 
 package org.wahlzeit.services.mailing;
 
+import org.wahlzeit.DesignPattern;
 import org.wahlzeit.main.ServiceMain;
 
 /**
  *
  */
+@DesignPattern(
+		name = "Decorator", 
+		participants = { 
+				"DecoratorClient", "ComponentClient"
+		}
+)
 public class EmailServiceManager {
 
 	/**

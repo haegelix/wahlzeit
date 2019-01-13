@@ -22,6 +22,8 @@ package org.wahlzeit.main;
 
 import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesServiceFactory;
+
+import org.wahlzeit.DesignPattern;
 import org.wahlzeit.model.GlobalsManager;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoCaseManager;
@@ -43,6 +45,12 @@ import java.util.logging.Logger;
 /**
  * A single-threaded Main class with database connection. Can be used by tools that don't want to start a server.
  */
+@DesignPattern(
+		name = "Adapter", 
+		participants = { 
+				"Client"
+		}
+)
 public abstract class ModelMain extends AbstractMain {
 
 	private static final Logger log = Logger.getLogger(ModelMain.class.getName());
