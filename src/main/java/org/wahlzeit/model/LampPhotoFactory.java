@@ -34,6 +34,7 @@ public class LampPhotoFactory extends PhotoFactory {
 
 	/**
 	 * Creates a new photo with the specified id
+	 * @methodtype factory
 	 */
 	public Photo createPhoto(PhotoId id) {
 		return new LampPhoto(id);
